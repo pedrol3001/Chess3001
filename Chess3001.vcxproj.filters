@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\evaluation.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\magicBits.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\magics.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\moves.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\perft.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\search.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\types.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\uci.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\attacks.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bitboards.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\board.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\moveGen.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\evaluation.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\magicBits.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\moves.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\perft.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\search.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uci.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\attacks.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bitboards.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\board.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\moveGen.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
