@@ -73,6 +73,6 @@ See the github documentation about [how to create a pull request](https://help.g
 
 ## 📝 License
 
-This project is under a licese. See the file [License](LICENSE.md) to see more details.
+This project is under a licese. See the file [License](LICENSE) to see more details.
 
 [⬆ Get to the top](#Chess3001)<br>
