@@ -35,9 +35,13 @@ Before start verify this dependencies.
 
 To use Chess3001, follow this instructions:
 
-```
-To Do
-```
+### Build
+
+`Todo`
+
+### Run
+
+* Download a chess uci gui interface. Example, [Arena Chess](http://www.playwitharena.de)
 
 ## 📫 Contributing with Chess3001
 
