@@ -6,7 +6,7 @@
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/pedrol3001/Chess3001?style=for-the-badge)
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/pedrol3001/Chess3001?style=for-the-badge)
 
-> Uci Chess Engine developed in c++ using [chess programming principles](https://www.chessprogramming.org)
+> Uci Chess Engine developed in c++ using [chess programming principles](https://www.chessprogramming.org) and some optimizations used in [Stockfish](https://github.com/official-stockfish/Stockfish.git)
 
 ### Improvements
 
