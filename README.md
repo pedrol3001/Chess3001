@@ -2,7 +2,8 @@
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/pedrol3001/Chess3001?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/pedrol3001/Chess3001?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/pedrol3001/Chess3001?style=for-the-badge)
+![GitHub stars](https://img.shields.io/github/stars/pedrol3001/Chess3001?style=for-the-badge&color=00ff00)
+![GitHub forks](https://img.shields.io/github/forks/pedrol3001/Chess3001?style=for-the-badge&color=ff00ff)
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/pedrol3001/Chess3001?style=for-the-badge)
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/pedrol3001/Chess3001?style=for-the-badge)
 
