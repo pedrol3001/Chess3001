@@ -246,7 +246,7 @@ void MoveGen::generatePseudoKnightMoves(Board& board, std::deque<Move>& moveList
 
     const Color curr_color = board.colorToMove; // current color to move
     const Piece curr_piece = board.getCurrentTurnPiece(KNIGHT); // current piece to move
-    const Square kingSquare = board.bitboards.getKingSquare(curr_color); // current king square 
+    //const Square kingSquare = board.bitboards.getKingSquare(curr_color); // current king square 
 
     while (cpBB) {
 

@@ -55,7 +55,6 @@ using namespace std::chrono;
 
         while (is >> str) {
             if (str == "depth") {
-                int aux = 0;
                 is >> search->searchDepth;
             }
         }
@@ -160,19 +159,18 @@ using namespace std::chrono;
 
             else if (str == "board") uci->printBoard();
             else if (str == "perft") {     
-                try {
-                    string depth_str;
-                    is >> depth_str;
+                
+                string depth_str;
+                is >> depth_str;
+                if(depth_str.length() == 0){
+                    cerr << "Depth less or equal 0" << endl;
+                }
+                else{
                     int depth = stoi(depth_str);
-                    if (depth <= 0)
-                        throw std::invalid_argument("Depth less or equal 0");
                     string fen = trim_copy(is.str().substr(is.str().find_first_of(" \t") + 2));
                     perftTest(depth, fen, true);
                 }
-                catch (const std::exception& exc) {
-                    std::cerr << "Error in perft command, try again -> perft [depth > 0] [valid fen string]" << endl;
-                    std::cerr << exc.what() << endl;
-                }
+               
             }else if (str == "debug") perftTestDebug();
             else
                cout << "Invalid command " << cmd << endl;

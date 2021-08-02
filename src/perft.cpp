@@ -22,7 +22,7 @@ uint64_t perftDriver(Board &board, int depth){
 
     MoveGen::generatePseudoMoves<ALL_MOVES>(board, moveList);
     
-    for (int i = 0; i < moveList.size(); i++) {
+    for (size_t i = 0; i < moveList.size(); i++) {
 
         if (Moves::makeMove(board, moveList[i])){
 
@@ -55,7 +55,7 @@ uint64_t perftTest(int depth, std::string fen_string, bool divide){
 
     if (divide){
 
-        for (int i = 0; i < moveList.size(); i++) {
+        for (size_t i = 0; i < moveList.size(); i++) {
 
             if (Moves::makeMove(board, moveList[i])){
 

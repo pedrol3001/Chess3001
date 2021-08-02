@@ -8,7 +8,8 @@ int Evaluation::getBoardScore(Board &board){
     for(Square sq = SQUARE_ZERO; sq < SQUARE_INIT ;sq++){
         Piece p = board.bitboards.getSquareFromBoard(sq);
         score += pieceScore[p];
-        if (p == WHITE) {
+        
+        if (colorOfPiece(p) == WHITE) {
             score += positionalScore[typeOfPiece(p)][mirrorBoard[sq]];
         }else {
             score -= positionalScore[typeOfPiece(p)][sq];

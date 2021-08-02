@@ -55,7 +55,8 @@ Bitboard Attacks::getNonSliddingAttack(const Square sq , const PieceType P){
     if(P == KNIGHT || P == KING){
         return this->NonSliddingAtacks[P == KNIGHT ? 0 : 1 ][sq];
     }
-    throw std::logic_error("Not a non slidding piece");
+    std::cerr << "Not a non slidding piece"<< std::endl;
+    return false;
 }
 
 // Return Slinding pieces attack bitboard by a square, the blockers bitboats 
@@ -67,7 +68,9 @@ Bitboard Attacks::getSliddingAttack(const Square sq, const PieceType P, const Bi
         case BISHOP: return bishopAttacks(blockers, sq);
         case ROOK: return rookAttacks(blockers, sq);
         case QUEEN: return queenAttacks(blockers, sq);
-        default: throw std::logic_error("Not a sliding piece");
+        default: 
+            std::cerr << "Not a sliding piece" << std::endl;
+            return 0xffffffff;
     }
 }
 
@@ -103,7 +106,7 @@ Bitboard Attacks::bishopAttacks(const Bitboard blockers, const Square sq) {
     Magic m = this->SliddindAtacks.get_bishopMagics(sq);
     Bitboard occupancy = blockers & m.mask;
     const uint64_t index = ((occupancy * m.magic) >> (SQUARE_INIT - m.shift)) + m.offset;
-    return this->SliddindAtacks.get_bishopAttacks(unsigned int(index));
+    return this->SliddindAtacks.get_bishopAttacks(index);
 }
 
 // Get a pattern for rook attacks from magic bitboad attack buffer
@@ -112,7 +115,7 @@ Bitboard Attacks::rookAttacks(const Bitboard blockers, const Square sq) {
     Magic m = this->SliddindAtacks.get_rookMagics(sq);
     Bitboard occupancy = blockers & m.mask;
     const uint64_t index = ((occupancy * m.magic) >> (SQUARE_INIT - m.shift)) + m.offset;
-    return this->SliddindAtacks.get_rookAttacks(unsigned int (index));
+    return this->SliddindAtacks.get_rookAttacks(index);
 
 }
 

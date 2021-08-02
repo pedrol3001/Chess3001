@@ -118,105 +118,100 @@ void Board::printBoard(){
 
 bool Board::setFromFEN(const std::string &FEN_string){
 
-    try{
 
-        int phase_FEN = 0;
-        Square square_counter = A8;
-        
-        for(char c : FEN_string){
-        
-            if(!isspace(c)){
-                switch (phase_FEN){
-                    case 0:
-                        // Square numbers
+    int phase_FEN = 0;
+    Square square_counter = A8;
+    
+    for(char c : FEN_string){
+    
+        if(!isspace(c)){
+            switch (phase_FEN){
+                case 0:
+                    // Square numbers
 
-                        if(c == '/'){
-                            square_counter += SOUTH*2;
+                    if(c == '/'){
+                        square_counter += SOUTH*2;
 
-                        }else if(isdigit(c)){
-                            square_counter += EAST*std::stoi(std::string(1,c));
-                        
-                        }else{
-                            bitboards.setPiece(square_counter,pieceOfTypeColor(charToPieceType(c),charToPieceColor(c)));
-                            square_counter+=EAST;
-                        }
-                        break;
-                    case 1:
-                        if(c=='w'){
-                            colorToMove = WHITE;
-                        }else if(c == 'b'){
-                            colorToMove = BLACK;
-                        }else{
-                            std::cerr << "Invalid fen" << std::endl;
-                            return false;
-                        }
-                        break;
-                    case 2:
-                        switch (tolower(c)){
-                            case 'k':
-                                if(charToPieceColor(c)==WHITE){
-                                    castlingRights |= WHITE_OO;
-                                }else if(charToPieceColor(c)==BLACK){
-                                    castlingRights |= BLACK_OO;
-                                }else{
-                                    std::cerr << "Invalid fen" << std::endl;
-                                    return false;
-                                }
-                                break;
-                            case 'q':
-                                if(charToPieceColor(c)==WHITE){
-                                    castlingRights |= WHITE_OOO;
-                                }else if(charToPieceColor(c)==BLACK){
-                                    castlingRights |= BLACK_OOO;
-                                }else{
-                                    std::cerr << "Invalid fen" << std::endl;
-                                    return false;
-                                }
-                                break;
-                            case '-':
-                                break;
-                            default:
+                    }else if(isdigit(c)){
+                        square_counter += EAST*std::stoi(std::string(1,c));
+                    
+                    }else{
+                        bitboards.setPiece(square_counter,pieceOfTypeColor(charToPieceType(c),charToPieceColor(c)));
+                        square_counter+=EAST;
+                    }
+                    break;
+                case 1:
+                    if(c=='w'){
+                        colorToMove = WHITE;
+                    }else if(c == 'b'){
+                        colorToMove = BLACK;
+                    }else{
+                        std::cerr << "Invalid fen" << std::endl;
+                        return false;
+                    }
+                    break;
+                case 2:
+                    switch (tolower(c)){
+                        case 'k':
+                            if(charToPieceColor(c)==WHITE){
+                                castlingRights |= WHITE_OO;
+                            }else if(charToPieceColor(c)==BLACK){
+                                castlingRights |= BLACK_OO;
+                            }else{
                                 std::cerr << "Invalid fen" << std::endl;
                                 return false;
                             }
-                        break;
-                    case 3:
-                        if(c >= 'a' && c <= 'h'){
-                            this->passantSquare += EAST*(c - 'a');
-                        }else if( c >= '0' && c <= '8'){
-                            this->passantSquare += NORTH*(c - '1');
-                        }else if(c == '-'){
-                            this->passantSquare = SQUARE_NONE;
-                        }else{
+                            break;
+                        case 'q':
+                            if(charToPieceColor(c)==WHITE){
+                                castlingRights |= WHITE_OOO;
+                            }else if(charToPieceColor(c)==BLACK){
+                                castlingRights |= BLACK_OOO;
+                            }else{
+                                std::cerr << "Invalid fen" << std::endl;
+                                return false;
+                            }
+                            break;
+                        case '-':
+                            break;
+                        default:
                             std::cerr << "Invalid fen" << std::endl;
                             return false;
                         }
-                        break;            
-                    case 4:
-                        halfMoveCounter = std::stoi(std::string(1,c));
-                        break;  
-                    case 5:
-                        fullMoveClock = std::stoi(std::string(1,c));
-                        return true;      
-                    default:
+                    break;
+                case 3:
+                    if(c >= 'a' && c <= 'h'){
+                        this->passantSquare += EAST*(c - 'a');
+                    }else if( c >= '0' && c <= '8'){
+                        this->passantSquare += NORTH*(c - '1');
+                    }else if(c == '-'){
+                        this->passantSquare = SQUARE_NONE;
+                    }else{
                         std::cerr << "Invalid fen" << std::endl;
                         return false;
+                    }
+                    break;            
+                case 4:
+                    halfMoveCounter = std::stoi(std::string(1,c));
+                    break;  
+                case 5:
+                    fullMoveClock = std::stoi(std::string(1,c));
+                    return true;      
+                default:
+                    std::cerr << "Invalid fen" << std::endl;
+                    return false;
 
-                }
-
-
-            }else{
-                phase_FEN++;
             }
-            
+
+
+        }else{
+            phase_FEN++;
         }
-
-        return true;
-
-    }catch(...){
-        std::cerr << "Invalid fen" << std::endl;
-        return false;
+        
     }
+
+    return true;
+
 }
 
 

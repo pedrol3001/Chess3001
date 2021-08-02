@@ -50,7 +50,7 @@ void MagicBits::GenerateMagic(const Square index,
       Bitboard candidate_magic = ZeroBitBiasedRandom();
       bool collision = false;
       
-      for (unsigned int k = 0; k < occupancies.size(); ++k) {
+      for (size_t k = 0; k < occupancies.size(); ++k) {
         
         const Bitboard occupancy = occupancies.at(k);
         const Bitboard attack = attacks.at(k);
@@ -136,7 +136,7 @@ Magic MagicBits::get_rookMagics(const Square sq){
    return this->rookMagics[sq];
 }
 
-Bitboard MagicBits::get_rookAttacks(const unsigned int index){
+Bitboard MagicBits::get_rookAttacks(const uint64_t index){
 
    return this->rookAtacks[index];
 }
@@ -145,6 +145,6 @@ Magic MagicBits::get_bishopMagics(const Square sq){
    return this->bishopMagics[sq];
 }
 
-Bitboard MagicBits::get_bishopAttacks(const unsigned int index){
+Bitboard MagicBits::get_bishopAttacks(const uint64_t index){
    return this->bishopAtacks[index];
 }
