@@ -27,7 +27,7 @@ This project still in development
 
 Before start verify this dependencies.
 
-* You should install the lattest version of `g++` compiler.
+* You should install the lattest version of `g++` compiler and `make`.
 * Should have a `Windows / Linux / Mac`.
 * Must understand the basics of chess programming `https://www.chessprogramming.org`.
 
@@ -37,7 +37,13 @@ To use Chess3001, follow this instructions:
 
 ### Build
 
-`Todo`
+```
+cd src
+make build
+./chess3001
+```
+
+Use `make help` to see all possible build options.
 
 ### Run
 
