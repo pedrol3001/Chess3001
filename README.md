@@ -11,8 +11,6 @@
 
 ### Improvements
 
-This project still in development
-
 - [X] Bitboards as borad representation
 - [X] Magic Bitboards to generate sliding pieces moves
 - [X] Principal Variation Search to find best move
