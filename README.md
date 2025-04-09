@@ -7,60 +7,185 @@
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/pedrol3001/Chess3001?style=for-the-badge)
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/pedrol3001/Chess3001?style=for-the-badge)
 
-> Uci Chess Engine developed in c++ using [chess programming principles](https://www.chessprogramming.org) and some optimizations used in [Stockfish](https://github.com/official-stockfish/Stockfish.git)
+> Chess3001 is a full-stack chess application consisting of a powerful UCI chess engine written in C++, a Ruby Sinatra REST API, and a React frontend. The engine uses advanced [chess programming principles](https://www.chessprogramming.org) and optimizations inspired by [Stockfish](https://github.com/official-stockfish/Stockfish.git).
 
-### Improvements
+## 🏗️ Project Structure
 
-- [X] Bitboards as borad representation
-- [X] Magic Bitboards to generate sliding pieces moves
-- [X] Principal Variation Search to find best move
-- [X] Quiescence Search to optimize the search algorithm
-- [X] Move ordering to optimize alpha beta pruning
-- [X] Linear static evaluation of pieces
-- [X] Uci protocol to communicate with a GUI
-- [ ] Improve move generation time
-- [ ] Finish Uci commands
-- [ ] C++ Algorithms optimizations
+The project is organized into three main components:
 
-## 💻 Dependencies
+- **Engine**: A high-performance C++ chess engine with UCI protocol support
+- **Backend**: A Ruby Sinatra REST API that interfaces with the engine
+- **Frontend**: A React-based web interface for playing against the engine
 
-Before start verify this dependencies.
+## 🚀 Chess Engine
 
-* You should install the lattest version of `g++` compiler and `make`.
-* Should have a `Windows / Linux / Mac`.
-* Must understand the basics of chess programming `https://www.chessprogramming.org`.
+The core of Chess3001 is a powerful chess engine written in C++ that implements various advanced chess programming techniques.
 
-## ☕ Using Chess3001
+### Features
 
-To use Chess3001, follow this instructions:
+- [x] Bitboards for efficient board representation
+- [x] Magic Bitboards for fast sliding piece move generation
+- [x] Principal Variation Search algorithm for finding the best moves
+- [x] Quiescence Search to optimize the search algorithm
+- [x] Move ordering to enhance alpha-beta pruning efficiency
+- [x] Linear static evaluation of pieces
+- [x] UCI protocol for GUI communication
+- [ ] Improved move generation time
+- [ ] Complete UCI command implementation
+- [ ] Additional C++ algorithm optimizations
 
-### Build
+### Building the Engine
 
-```
-cd src
+```bash
+# Navigate to the engine directory
+cd engine
+
+# Build the engine
 make build
+
+# Run the engine directly (UCI mode)
 ./chess3001
 ```
 
-Use `make help` to see all possible build options.
+Use `make help` to see all available build options.
 
-### Run
+### Using with Chess GUIs
 
-* Download a chess uci gui interface. Example, [Arena Chess](http://www.playwitharena.de)
+If you prefer to use the engine with a standard chess GUI:
 
-## 📫 Contributing with Chess3001
+1. Download a UCI-compatible chess GUI (e.g., [Arena Chess](http://www.playwitharena.de))
+2. Configure the GUI to use the `chess3001` executable
+3. Start a new game with the engine
 
-Para contribuir com <nome_do_projeto>, siga estas etapas:
+## 🌐 Backend API
+
+The Chess3001 backend is a Ruby Sinatra REST API that provides an interface between the frontend and the chess engine.
+
+### Features
+
+- Simple JSON-based API for interacting with the chess engine
+- Endpoints for retrieving board state, making moves, and resetting games
+- Cross-origin resource sharing (CORS) support for frontend integration
+- Custom command handling for communicating with the UCI engine
+
+### Setup
+
+```bash
+# Navigate to the backend directory
+cd backend
+
+# Install required gems
+gem install sinatra json sinatra-cross-origin
+
+# Start the API server
+ruby chess_api.rb
+```
+
+The server will run on `http://localhost:4567`.
+
+### API Endpoints
+
+#### Get Board State
+
+```
+GET /api/board
+```
+
+Returns the current board state in FEN notation.
+
+#### Make a Move
+
+```
+POST /api/move
+```
+
+Request body:
+```json
+{
+  "move": "e2e4"
+}
+```
+
+Makes the specified player move and returns the updated board state.
+
+#### Reset Game
+
+```
+POST /api/reset
+```
+
+Resets the game to the starting position.
+
+### Implementation Notes
+
+- The API uses the `fen` command (instead of `d`) to retrieve the FEN string representation of the board
+- The engine returns the raw FEN string without any prefix
+- All endpoints use the `/api/` prefix for consistency and clarity
+
+## 💻 Frontend
+
+The Chess3001 frontend is a modern React application that provides a user-friendly interface for playing against the chess engine.
+
+### Features
+
+- Modern React-based user interface
+- Interactive chessboard with drag-and-drop move capability
+- Real-time game state synchronization with the backend
+- Responsive design for desktop and mobile play
+
+### Setup
+
+```bash
+# Navigate to the frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm start
+```
+
+The frontend will be available at `http://localhost:3000`.
+
+### Implementation Notes
+
+- Uses the native fetch API with explicit CORS mode and headers
+- Connects directly to the backend at http://localhost:4567
+- Includes detailed error handling for connection issues
+
+## 📋 Prerequisites
+
+Before getting started, ensure you have:
+
+- **For the Engine**:
+  - Latest version of `g++` compiler
+  - `make` build system
+  - Windows, Linux, or macOS
+
+- **For the Backend**:
+  - Ruby 2.6+
+  - Sinatra gem
+  - JSON gem
+  - sinatra-cross-origin gem
+
+- **For the Frontend**:
+  - Node.js and npm
+  - React
+
+## 🤝 Contributing
+
+To contribute to Chess3001:
 
 1. Fork this repository
-2. Create a branch : `git checkout -b branch_name`.
-3. Make the desired changes: `git commit -m 'commit_message'`
-4. Envie para o branch original: `git push origin branch_name`
-5. Create the pull request.
+2. Create a branch: `git checkout -b feature_branch_name`
+3. Make your changes and commit them: `git commit -m 'Add some feature'`
+4. Push to the original branch: `git push origin feature_branch_name`
+5. Create a pull request
 
-See the github documentation about [how to create a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+See GitHub's documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
-## 🤝 Collaborators
+## 👥 Collaborators
 
 <table>
   <tr>
@@ -75,120 +200,8 @@ See the github documentation about [how to create a pull request](https://help.g
   </tr>
 </table>
 
-# Chess3001 REST API with Ruby Sinatra
-
-A simple REST API wrapper for the Chess3001 engine using Ruby and Sinatra.
-
-## Prerequisites
-
-- Ruby 2.6+
-- Sinatra gem
-- Compiled Chess3001 engine
-
-## Installation
-
-1. Make sure your Chess3001 engine is compiled:
-   ```
-   cd src
-   make
-   ```
-
-2. Install the required Ruby gems:
-   ```
-   gem install sinatra json
-   ```
-
-## Running the API
-
-Start the API server:
-
-```
-ruby chess_api.rb
-```
-
-The server will run on `http://localhost:4567`.
-
-## API Endpoints
-
-### Get Board State
-
-```
-GET /board
-```
-
-Returns the current board state in FEN notation and a text representation.
-
-### Make a Move
-
-```
-POST /move
-```
-
-Request body:
-```json
-{
-  "move": "e2e4"
-}
-```
-
-Makes the specified player move and then an engine move. Returns both moves and the resulting board state.
-
-### Reset Game
-
-```
-POST /reset
-```
-
-Resets the game to the starting position.
-
-## Example Usage
-
-Using curl:
-
-```bash
-# Get the current board state
-curl http://localhost:4567/board
-
-# Make a move
-curl -X POST http://localhost:4567/move \
-  -H "Content-Type: application/json" \
-  -d '{"move": "e2e4"}'
-
-# Reset the game
-curl -X POST http://localhost:4567/reset
-```
-
-Using Ruby:
-
-```ruby
-require 'net/http'
-require 'uri'
-require 'json'
-
-# Get the current board state
-uri = URI.parse('http://localhost:4567/board')
-response = Net::HTTP.get_response(uri)
-puts JSON.parse(response.body)
-
-# Make a move
-uri = URI.parse('http://localhost:4567/move')
-http = Net::HTTP.new(uri.host, uri.port)
-request = Net::HTTP::Post.new(uri.request_uri, {'Content-Type' => 'application/json'})
-request.body = {move: 'e2e4'}.to_json
-response = http.request(request)
-puts JSON.parse(response.body)
-
-# Reset the game
-uri = URI.parse('http://localhost:4567/reset')
-http = Net::HTTP.new(uri.host, uri.port)
-request = Net::HTTP::Post.new(uri.request_uri)
-response = http.request(request)
-puts JSON.parse(response.body)
-```
-
-
 ## 📝 License
 
-This project is under a licese. See the file [License](LICENSE) to see more details.
+This project is licensed under the terms specified in the [LICENSE](LICENSE) file.
 
-[⬆ Get to the top](#Chess3001)<br>
+[⬆ Get to the top](#Chess3001)
