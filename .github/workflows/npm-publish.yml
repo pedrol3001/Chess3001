@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: '18'
           registry-url: 'https://npm.pkg.github.com'
-          scope: '@chess3001'
+          scope: '@pedrol3001'
 
       - name: Install dependencies
         run: |

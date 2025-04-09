@@ -4,7 +4,7 @@
   "private": true,
   "description": "Chess3001 Frontend Application",
   "dependencies": {
-    "@chess3001/react-components": "file:./lib",
+    "@pedrol3001/chess3001-react-components": "file:./lib",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",

@@ -16,7 +16,7 @@ export default {
       sourcemap: true,
       sourcemapPathTransform: (relativeSourcePath) => {
         // Fix source map paths to use the correct directory structure
-        return relativeSourcePath.replace('../', './').replace(/^\.\//, '@chess3001/react-components/');
+        return relativeSourcePath.replace('../', './').replace(/^\.\//, '@pedrol3001/chess3001-react-components/');
       }
     },
     {
@@ -26,7 +26,7 @@ export default {
       sourcemap: true,
       sourcemapPathTransform: (relativeSourcePath) => {
         // Fix source map paths to use the correct directory structure
-        return relativeSourcePath.replace('../', './').replace(/^\.\//, '@chess3001/react-components/');
+        return relativeSourcePath.replace('../', './').replace(/^\.\//, '@pedrol3001/chess3001-react-components/');
       }
     },
   ],

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { ChessBoard, ChessAPI } from '@chess3001/react-components';
+import { ChessBoard, ChessAPI } from '@pedrol3001/chess3001-react-components';
 
 const App: React.FC = () => {
   const [apiStatus, setApiStatus] = useState<string>('Connecting to Chess API...');
