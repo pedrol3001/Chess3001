@@ -14,12 +14,20 @@ export default {
       format: 'cjs',
       exports: 'named',
       sourcemap: true,
+      sourcemapPathTransform: (relativeSourcePath) => {
+        // Fix source map paths to use the correct directory structure
+        return relativeSourcePath.replace('../', './').replace(/^\.\//, '@chess3001/react-components/');
+      }
     },
     {
       file: pkg.module,
       format: 'es',
       exports: 'named',
       sourcemap: true,
+      sourcemapPathTransform: (relativeSourcePath) => {
+        // Fix source map paths to use the correct directory structure
+        return relativeSourcePath.replace('../', './').replace(/^\.\//, '@chess3001/react-components/');
+      }
     },
   ],
   plugins: [

@@ -18,6 +18,44 @@
   margin: 0 0 10px 0;
 }
 
+.api-status {
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin: 10px 0;
+  display: inline-block;
+}
+
+.api-status.connected {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.api-status.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.api-error {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 20px;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.api-error p {
+  margin: 10px 0;
+}
+
+.api-error ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
 .App-content {
   display: flex;
   justify-content: center;
