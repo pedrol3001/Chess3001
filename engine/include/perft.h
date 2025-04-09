@@ -79,7 +79,7 @@ typedef struct positionSignatureTag {
    uint64_t nodes;
 } positionSignature;
 
-static positionSignature perftests[] = {
+[[maybe_unused]] static positionSignature perftests[] = {
    // Martin Sedlak's test positions
    // (http://www.talkchess.com/forum/viewtopic.php?t=47318)
    // avoid illegal ep

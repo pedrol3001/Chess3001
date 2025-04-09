@@ -616,7 +616,7 @@ ifeq ($(debug), no)
 	else ifeq ($(comp),gcc)
 	ifeq ($(gccisclang),)
 		CXXFLAGS += -flto
-		LDFLAGS += $(CXXFLAGS) -flto=jobserver
+		LDFLAGS += $(CXXFLAGS) -flto=auto
 		ifneq ($(findstring MINGW,$(KERNEL)),)
 			LDFLAGS += -save-temps
 		else ifneq ($(findstring MSYS,$(KERNEL)),)
@@ -634,7 +634,7 @@ ifeq ($(debug), no)
 	ifeq ($(KERNEL),Linux)
 	ifneq ($(arch),i386)
 		CXXFLAGS += -flto
-		LDFLAGS += $(CXXFLAGS) -flto=jobserver
+		LDFLAGS += $(CXXFLAGS) -flto=auto
 	endif
 	endif
 	endif
