@@ -38,3 +38,5 @@ USER $USERNAME
 
 # Set the working directory
 WORKDIR /workspaces/chess3001
+
+ENV ENGINE_PATH="/workspaces/chess3001/engine/app"

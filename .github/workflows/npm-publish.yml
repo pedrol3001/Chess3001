@@ -1,0 +1,44 @@
+name: NPM Package Publish
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'frontend/lib/**'
+      - '.github/workflows/npm-publish.yml'
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    defaults:
+      run:
+        working-directory: ./frontend/lib
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@chess3001'
+
+      - name: Install dependencies
+        run: |
+          npm install --no-package-lock --no-save rollup rollup-plugin-peer-deps-external rollup-plugin-terser @rollup/plugin-commonjs @rollup/plugin-node-resolve
+          npm install --no-package-lock --no-save react react-dom react-chessboard
+        
+      - name: Build library
+        run: npm run build
+        
+      - name: Publish to GitHub Packages
+        if: github.event_name != 'pull_request'
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

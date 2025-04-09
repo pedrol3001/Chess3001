@@ -1,7 +1,17 @@
-ifeq ($(COMP),mingw)
-	EXE = chess3001.exe
+
+# Allow setting executable name via EXE_NAME parameter
+ifeq ($(EXE_NAME),)
+	ifeq ($(COMP),mingw)
+		EXE = app.exe
+	else
+		EXE = app
+	endif
 else
-	EXE = chess3001
+	ifeq ($(COMP),mingw)
+		EXE = $(EXE_NAME).exe
+	else
+		EXE = $(EXE_NAME)
+	endif
 endif
 
 ### Installation dir definitions

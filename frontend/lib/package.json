@@ -1,0 +1,36 @@
+{
+  "name": "@chess3001/react-components",
+  "version": "0.1.0",
+  "private": false,
+  "description": "A React component library for the Chess3001 API",
+  "keywords": [
+    "chess",
+    "react",
+    "component",
+    "library",
+    "chess3001"
+  ],
+  "author": "Chess3001 Team",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedrol3001/Chess3001.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "dependencies": {
+    "react-chessboard": "^4.7.2"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
+  }
+}

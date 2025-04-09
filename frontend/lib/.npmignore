@@ -1,0 +1,18 @@
+# Source files
+*.js
+!dist/**/*.js
+
+# Config files
+rollup.config.js
+.gitignore
+
+# Development files
+node_modules/
+.DS_Store
+.env*
+
+# Only include the dist folder
+!dist/
+!package.json
+!README.md
+!LICENSE

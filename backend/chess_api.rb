@@ -4,7 +4,7 @@ require 'open3'
 
 # Configuration
 set :bind, '0.0.0.0'
-set :port, 4567
+set :port, ENV['PORT'] ? ENV['PORT'].to_i : 4567
 
 # Add CORS headers to all responses
 before do
@@ -38,7 +38,7 @@ def error_response(message, status_code = 400)
 end
 
 # Path to the chess engine executable
-ENGINE_PATH = "../engine/chess3001"
+ENGINE_PATH = ENV.fetch('ENGINE_PATH')
 STATE_FILE = "./game_state.txt"
 
 # Default starting position in FEN notation
