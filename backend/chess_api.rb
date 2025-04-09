@@ -161,7 +161,7 @@ def make_move(move_str)
     commands = [
       "isready",
       "position fen #{player_fen}",
-      "go depth 7"
+      "go depth 6"
     ]
     
     response = communicate_with_engine(commands)
