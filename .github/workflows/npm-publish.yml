@@ -2,7 +2,7 @@ name: NPM Package Publish
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
     paths:
       - 'frontend/lib/**'
       - '.github/workflows/npm-publish.yml'
