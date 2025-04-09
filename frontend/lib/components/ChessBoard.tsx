@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Chessboard } from 'react-chessboard';
 import './ChessBoard.css';
-import { ChessBoardProps, ChessAPIInterface } from '../types';
+import { ChessAPIInterface } from '../api/ChessAPI';
+
+/**
+ * Props for the ChessBoard component
+ */
+export interface ChessBoardProps {
+  api: ChessAPIInterface;
+}
 
 interface SnackbarProps {
   message: string;
@@ -321,8 +328,12 @@ const ChessBoard: React.FC<ChessBoardProps> = ({ api }) => {
       return false;
     }
     
-    // Make the move
-    return makeMove(from, to);
+    // Make the move - we need to handle the Promise differently
+    // Start the move process but return true to allow the UI to update
+    makeMove(from, to).catch(err => {
+      console.error('Move failed:', err);
+    });
+    return true;
   };
 
   // Determine if a piece is draggable (only white pieces)

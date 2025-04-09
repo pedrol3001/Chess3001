@@ -31,14 +31,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install --no-package-lock --no-save rollup rollup-plugin-peer-deps-external rollup-plugin-terser @rollup/plugin-commonjs @rollup/plugin-node-resolve
-          npm install --no-package-lock --no-save react react-dom react-chessboard
-        
-      - name: Build library
-        run: npm run build
-        
+          npm ci
+          npm install --no-package-lock --no-save rollup-plugin-postcss
+          
+      - name: Build package
+        run: |
+          npm run build
+          
       - name: Publish to GitHub Packages
         if: github.event_name != 'pull_request'
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
