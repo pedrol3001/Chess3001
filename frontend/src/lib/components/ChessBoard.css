@@ -1,0 +1,118 @@
+/* Chess Board Container */
+.chess-board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Controls */
+.chess-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.chess-reset-button {
+  background-color: #4a6ea9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.game-status {
+  font-weight: bold;
+  color: #d63031;
+  margin: 10px 0;
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border-left: 4px solid #d63031;
+}
+
+.turn-indicator {
+  font-weight: bold;
+  margin: 5px 0;
+  padding: 5px 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+/* Chess Board */
+.chess-board-wrapper {
+  border-radius: 4px;
+  overflow: hidden;
+  width: 480px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Loading and Error States */
+.chess-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 480px;
+  width: 480px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #f8f9fa;
+}
+
+/* Snackbar styles */
+.snackbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  min-width: 300px;
+  max-width: 90%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.snackbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  color: white;
+  font-size: 14px;
+}
+
+.snackbar.error .snackbar-content {
+  background-color: #d63031;
+}
+
+.snackbar.success .snackbar-content {
+  background-color: #43a047;
+}
+
+.snackbar.warning .snackbar-content {
+  background-color: #ffa000;
+}
+
+.snackbar.info .snackbar-content {
+  background-color: #2196f3;
+}
+
+.snackbar button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 16px;
+  padding: 0 4px;
+}

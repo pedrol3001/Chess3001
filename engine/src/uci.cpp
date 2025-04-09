@@ -39,9 +39,7 @@ using namespace std::chrono;
         while (is >> str && m != NO_MOVE){ 
             MoveGen::generatePseudoMoves<ALL_MOVES>(board, moveList);
             m = Uci::parseMove(moveList, str);
-            if(m != NO_MOVE)
-                Moves::makeMove(board,m);
-            
+            if(m != NO_MOVE) Moves::makeMove(board,m);
         }
     }
 
@@ -60,13 +58,11 @@ using namespace std::chrono;
         }
 
         int64_t score = 0;
-        std::deque<Move> line;
+        std::deque<Move> lines;
 
         for (int i = 1; i <= search->searchDepth; i++) {
-
-            line.clear();
-            score = search->pvSearch(board, -INF, +INF, i, line);
-
+            lines.clear();
+            score = search->pvSearch(board, -INF, +INF, i, lines);
         }
 
         cout << "info score cp " << score
@@ -75,13 +71,13 @@ using namespace std::chrono;
             
         cout << " pv ";
 
-        for (Move pvMove : line) {
+        for (Move pvMove : lines) {
             cout << Uci::writeMove(pvMove) << " ";
         }
         
-        cout << endl;;
+        cout << endl;
 
-        cout << "bestmove " << Uci::writeMove(line[0]) << endl;
+        cout << "bestmove " << Uci::writeMove(lines[0]) << endl;
     }
 
 
@@ -107,7 +103,7 @@ using namespace std::chrono;
         for (Move m : moveList){
             if( move == Uci::writeMove(m)){
                 return m;
-            }       
+            }
         }
         return NO_MOVE;
     }
@@ -138,9 +134,7 @@ using namespace std::chrono;
                 continue;
 
             else if (str == "uci")
-                cout << "id name " << "Chess3001"
-                //<< "\n"       << Options
-                << "\nuciok" << endl;
+                cout << "id name " << "chess3001" << endl << "uciok" << endl;
 
             //else if (str == "setoption")  setoption(is);
             else if (str == "go") {
@@ -158,6 +152,12 @@ using namespace std::chrono;
             }
 
             else if (str == "board") uci->printBoard();
+            else if (str == "fen") {
+                // Display the board and FEN string (similar to Stockfish's 'd' command)
+                uci->printBoard();
+                string fen = uci->getFEN();
+                cout << "fen " << fen << endl;
+            }
             else if (str == "perft") {     
                 
                 string depth_str;

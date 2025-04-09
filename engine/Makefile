@@ -16,10 +16,12 @@ else
 endif
 
 ### Source and object files
-SRCS = attacks.cpp bitboards.cpp board.cpp evaluation.cpp magicBits.cpp main.cpp \
-	moveGen.cpp moves.cpp perft.cpp search.cpp uci.cpp
+SRCS = src/attacks.cpp src/bitboards.cpp src/board.cpp src/evaluation.cpp src/magicBits.cpp src/main.cpp \
+	src/moveGen.cpp src/moves.cpp src/perft.cpp src/search.cpp src/uci.cpp
 
-OBJS = $(notdir $(SRCS:.cpp=.o))
+# Object files in obj directory
+OBJDIR = obj
+OBJS = $(addprefix $(OBJDIR)/,$(notdir $(SRCS:.cpp=.o)))
 
 ### Establish the operating system name
 
@@ -294,7 +296,7 @@ endif
 ### ==========================================================================
 
 ### 3.1 Selecting compiler (default = gcc)
-CXXFLAGS += -Wall -Wcast-qual -fno-exceptions -std=c++2a $(EXTRACXXFLAGS)
+CXXFLAGS += -Wall -Wcast-qual -fno-exceptions -std=c++2a -Iinclude $(EXTRACXXFLAGS)
 DEPENDFLAGS += -std=c++2a
 LDFLAGS += $(EXTRALDFLAGS)
 
@@ -653,7 +655,7 @@ endif
 
 help:
 	@echo ""
-	@echo "To compile stockfish, type: "
+	@echo "To compile chess3001, type: "
 	@echo ""
 	@echo "make target ARCH=arch [COMP=compiler] [COMPCXX=cxx]"
 	@echo ""
@@ -762,9 +764,11 @@ endif
 # clean binaries and objects
 objclean:
 ifeq ($(OS),Windows_NT)
-	@del /s /f $(EXE) *.o
+	@del /s /f $(EXE) $(OBJDIR)\*.o
+	@if exist $(OBJDIR) rmdir $(OBJDIR)
 else
-	@rm -f $(EXE) *.o
+	@rm -f $(EXE) $(OBJDIR)/*.o
+	@rm -rf $(OBJDIR)
 endif
 
 default:
@@ -776,6 +780,12 @@ default:
 
 all: $(EXE)
 
+$(OBJDIR)/%.o: src/%.cpp | $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
 $(EXE): $(OBJS)
 	+$(CXX) -o $@ $(OBJS) $(LDFLAGS)
 
@@ -786,9 +796,9 @@ clang-profile-make:
 	all
 
 clang-profile-use:
-	$(XCRUN) llvm-profdata merge -output=stockfish.profdata *.profraw
+	$(XCRUN) llvm-profdata merge -output=chess3001.profdata *.profraw
 	$(MAKE) ARCH=$(ARCH) COMP=$(COMP) \
-	EXTRACXXFLAGS='-fprofile-instr-use=stockfish.profdata' \
+	EXTRACXXFLAGS='-fprofile-instr-use=chess3001.profdata' \
 	EXTRALDFLAGS='-fprofile-use ' \
 	all
 

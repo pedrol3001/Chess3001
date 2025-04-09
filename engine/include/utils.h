@@ -181,7 +181,7 @@ constexpr bool is_valid(const Square s){
 
 // Count number os 1s in bitboard
 constexpr int popCount( Bitboard  B){
-  unsigned int count = 0; 
+  uint64_t count = 0; 
     while (B) { 
         count += B & 1; 
         B >>= 1; 
@@ -212,14 +212,14 @@ inline Square getMs1b(Bitboard b) {
 
 inline Square getLs1b(Bitboard b) {
   assert(b);
-  unsigned long idx;
+  uint64_t idx;
   _BitScanForward64(&idx, b);
   return Square(idx);
 }
 
 inline Square getMs1b(Bitboard b) {
   assert(b);
-  unsigned long idx;
+  uint64_t idx;
   _BitScanReverse64(&idx, b);
   return (Square) idx;
 }
@@ -228,7 +228,7 @@ inline Square getMs1b(Bitboard b) {
 
 inline Square getLs1b(Bitboard b) {
   assert(b);
-  unsigned long idx;
+  uint64_t idx;
 
   if (b & 0xffffffff) {
       _BitScanForward(&idx, int32_t(b));
@@ -241,7 +241,7 @@ inline Square getLs1b(Bitboard b) {
 
 inline Square getMs1b(Bitboard b) {
   assert(b);
-  unsigned long idx;
+  uint64_t idx;
 
   if (b >> 32) {
       _BitScanReverse(&idx, int32_t(b >> 32));

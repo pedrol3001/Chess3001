@@ -75,6 +75,117 @@ See the github documentation about [how to create a pull request](https://help.g
   </tr>
 </table>
 
+# Chess3001 REST API with Ruby Sinatra
+
+A simple REST API wrapper for the Chess3001 engine using Ruby and Sinatra.
+
+## Prerequisites
+
+- Ruby 2.6+
+- Sinatra gem
+- Compiled Chess3001 engine
+
+## Installation
+
+1. Make sure your Chess3001 engine is compiled:
+   ```
+   cd src
+   make
+   ```
+
+2. Install the required Ruby gems:
+   ```
+   gem install sinatra json
+   ```
+
+## Running the API
+
+Start the API server:
+
+```
+ruby chess_api.rb
+```
+
+The server will run on `http://localhost:4567`.
+
+## API Endpoints
+
+### Get Board State
+
+```
+GET /board
+```
+
+Returns the current board state in FEN notation and a text representation.
+
+### Make a Move
+
+```
+POST /move
+```
+
+Request body:
+```json
+{
+  "move": "e2e4"
+}
+```
+
+Makes the specified player move and then an engine move. Returns both moves and the resulting board state.
+
+### Reset Game
+
+```
+POST /reset
+```
+
+Resets the game to the starting position.
+
+## Example Usage
+
+Using curl:
+
+```bash
+# Get the current board state
+curl http://localhost:4567/board
+
+# Make a move
+curl -X POST http://localhost:4567/move \
+  -H "Content-Type: application/json" \
+  -d '{"move": "e2e4"}'
+
+# Reset the game
+curl -X POST http://localhost:4567/reset
+```
+
+Using Ruby:
+
+```ruby
+require 'net/http'
+require 'uri'
+require 'json'
+
+# Get the current board state
+uri = URI.parse('http://localhost:4567/board')
+response = Net::HTTP.get_response(uri)
+puts JSON.parse(response.body)
+
+# Make a move
+uri = URI.parse('http://localhost:4567/move')
+http = Net::HTTP.new(uri.host, uri.port)
+request = Net::HTTP::Post.new(uri.request_uri, {'Content-Type' => 'application/json'})
+request.body = {move: 'e2e4'}.to_json
+response = http.request(request)
+puts JSON.parse(response.body)
+
+# Reset the game
+uri = URI.parse('http://localhost:4567/reset')
+http = Net::HTTP.new(uri.host, uri.port)
+request = Net::HTTP::Post.new(uri.request_uri)
+response = http.request(request)
+puts JSON.parse(response.body)
+```
+
 
 ## 📝 License
 

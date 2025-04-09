@@ -111,7 +111,6 @@ bool Moves::makeMove(Board &board, const Move move){
         memcpy(&board.bitboards,&copyBB, sizeof(Bitboards));
         return false;
     }
-
 }
 
 void Moves::unmakeMove(Board &board){
@@ -121,7 +120,6 @@ void Moves::unmakeMove(Board &board){
     Square target = decodeMove<TARGET_SQUARE>(move);
     Piece piece = decodeMove<PIECE>(move);
     Color colorTomove = colorOfPiece(piece);
-
 
     
     // UPDATE CASTLING RIGHTS
@@ -144,7 +142,6 @@ void Moves::unmakeMove(Board &board){
     if(promotion_piece != NO_PIECE){
         board.bitboards.rmPiece(target,promotion_piece);
         board.bitboards.setPiece(target,(colorTomove == WHITE ? P : p ));
-        
     }
 
     // MOVE ROOKS IN CASTLING

@@ -56,6 +56,71 @@ Piece Board::getCurrentTurnPiece(PieceType pt)const {
     return pieceOfTypeColor(pt, colorToMove);
 }
 
+std::string Board::getFEN() const {
+    std::string fen;
+    int emptyCount = 0;
+    
+    // Piece placement
+    for (Rank r = RANK_8; r >= RANK_1; r--) {
+        for (File f = FILE_A; f <= FILE_H; f++) {
+            Square sq = Indx(f, r);
+            Piece piece = this->bitboards.getSquareFromBoard(sq);
+            
+            if (piece == NO_PIECE) {
+                emptyCount++;
+            } else {
+                if (emptyCount > 0) {
+                    fen += std::to_string(emptyCount);
+                    emptyCount = 0;
+                }
+                fen += pieceToChar(piece);
+            }
+        }
+        
+        if (emptyCount > 0) {
+            fen += std::to_string(emptyCount);
+            emptyCount = 0;
+        }
+        
+        if (r > RANK_1) {
+            fen += '/';
+        }
+    }
+    
+    // Active color
+    fen += ' ';
+    fen += (colorToMove == WHITE) ? 'w' : 'b';
+    
+    // Castling rights
+    fen += ' ';
+    if (castlingRights == NO_CASTLING) {
+        fen += '-';
+    } else {
+        if (castlingRights & WHITE_OO) fen += 'K';
+        if (castlingRights & WHITE_OOO) fen += 'Q';
+        if (castlingRights & BLACK_OO) fen += 'k';
+        if (castlingRights & BLACK_OOO) fen += 'q';
+    }
+    
+    // En passant square
+    fen += ' ';
+    if (passantSquare == SQUARE_ZERO) {
+        fen += '-';
+    } else {
+        fen += squareToString(passantSquare);
+    }
+    
+    // Halfmove clock
+    fen += ' ';
+    fen += std::to_string(halfMoveCounter);
+    
+    // Fullmove number
+    fen += ' ';
+    fen += std::to_string(fullMoveClock);
+    
+    return fen;
+}
+
 void Board::printBoard(){
     using namespace std;
 

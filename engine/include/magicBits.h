@@ -154,12 +154,10 @@ void initRookMagics();
 void initBishopMagics();
 
 Magic get_rookMagics(const Square sq);
-Bitboard get_rookAttacks(const unsigned int index);
+Bitboard get_rookAttacks(const uint64_t index);
 
 Magic get_bishopMagics(const Square sq);
-Bitboard get_bishopAttacks(const unsigned int index);
-
-
+Bitboard get_bishopAttacks(const uint64_t index);
 
 };
 

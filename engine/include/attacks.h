@@ -10,8 +10,8 @@ private:
 
     static Attacks *instance;
 
-    Bitboard PawnSliddingAttacks[static_cast<unsigned long long>(Color::COLOR_INIT)][static_cast<unsigned long long>(Square::SQUARE_INIT)];
-    Bitboard NonSliddingAtacks[2][static_cast<unsigned long long>(Square::SQUARE_INIT)]; // KNIGHT and KING
+    Bitboard PawnSliddingAttacks[static_cast<uint64_t>(Color::COLOR_INIT)][static_cast<uint64_t>(Square::SQUARE_INIT)];
+    Bitboard NonSliddingAtacks[2][static_cast<uint64_t>(Square::SQUARE_INIT)]; // KNIGHT and KING
     MagicBits SliddindAtacks;
 
 protected:

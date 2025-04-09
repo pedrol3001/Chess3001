@@ -32,6 +32,7 @@ class Board{
 
         // Getters and setters
         bool setFromFEN(const std::string &FEN_string);
+        std::string getFEN() const;
         void clearBoard();
         Piece getCurrentTurnPiece(const PieceType pt)const;
 

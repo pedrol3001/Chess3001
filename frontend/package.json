@@ -1,0 +1,33 @@
+{
+  "name": "chess3001-react",
+  "version": "0.1.0",
+  "private": false,
+  "description": "A React component library for the Chess3001 API",
+  "keywords": [
+    "chess",
+    "react",
+    "component",
+    "library",
+    "chess3001"
+  ],
+  "author": "Chess3001 Team",
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-chessboard": "^4.7.2",
+    "react-dom": "^19.1.0",
+    "react-scripts": "5.0.1"
+  },
+  "scripts": {
+    "start": "PORT=3001 react-scripts start",
+    "build": "react-scripts build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead"
+    ],
+    "development": [
+      "last 1 chrome version"
+    ]
+  }
+}
