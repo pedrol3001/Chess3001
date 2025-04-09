@@ -1,9 +1,30 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Chessboard } from 'react-chessboard';
 import './ChessBoard.css';
+import { ChessBoardProps, ChessAPIInterface } from '../types';
+
+interface SnackbarProps {
+  message: string;
+  type?: 'error' | 'success' | 'info' | 'warning';
+  onClose?: () => void;
+}
+
+interface BoardPosition {
+  [square: string]: string;
+}
+
+interface SnackbarState {
+  message: string;
+  type: 'error' | 'success' | 'info' | 'warning';
+  visible: boolean;
+}
+
+interface PieceProps {
+  piece: string;
+}
 
 // Simple Snackbar component
-const Snackbar = ({ message, type, onClose }) => {
+const Snackbar: React.FC<SnackbarProps> = ({ message, type, onClose }) => {
   useEffect(() => {
     // Auto-close after 5 seconds
     const timer = setTimeout(() => {
@@ -26,8 +47,8 @@ const Snackbar = ({ message, type, onClose }) => {
 };
 
 // Helper function to convert FEN to board object
-const fenToObj = (fen) => {
-  const boardObj = {};
+const fenToObj = (fen: string): BoardPosition => {
+  const boardObj: BoardPosition = {};
   if (!fen) return boardObj;
   
   // Get the board part of the FEN (before the first space)
@@ -44,7 +65,7 @@ const fenToObj = (fen) => {
       const char = row[j];
       
       // If it's a number, skip that many files
-      if (!isNaN(char)) {
+      if (!isNaN(Number(char))) {
         fileIndex += parseInt(char, 10);
       } else {
         // It's a piece - add it to the board object
@@ -62,20 +83,22 @@ const fenToObj = (fen) => {
 
 /**
  * Simple Chess Board Component
- * @param {Object} props - Component props
- * @param {Object} props.api - ChessAPI instance
  */
-const ChessBoard = ({ api }) => {
-  const [fen, setFen] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [moveFrom, setMoveFrom] = useState('');
-  const [gameStatus, setGameStatus] = useState('');
-  const [currentTurn, setCurrentTurn] = useState('white');
-  const [snackbar, setSnackbar] = useState({ message: '', type: 'error', visible: false });
+const ChessBoard: React.FC<ChessBoardProps> = ({ api }) => {
+  const [fen, setFen] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [moveFrom, setMoveFrom] = useState<string>('');
+  const [gameStatus, setGameStatus] = useState<string>('');
+  const [currentTurn, setCurrentTurn] = useState<'white' | 'black'>('white');
+  const [snackbar, setSnackbar] = useState<SnackbarState>({ 
+    message: '', 
+    type: 'error', 
+    visible: false 
+  });
 
   // Show a snackbar message
-  const showSnackbar = useCallback((message, type = 'error') => {
+  const showSnackbar = useCallback((message: string, type: 'error' | 'success' | 'info' | 'warning' = 'error') => {
     setSnackbar({ message, type, visible: true });
   }, []);
   
@@ -120,7 +143,7 @@ const ChessBoard = ({ api }) => {
       }
       
       setError(null);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error fetching board:', err);
       showSnackbar('Failed to load chess board: ' + err.message);
     } finally {
@@ -134,16 +157,16 @@ const ChessBoard = ({ api }) => {
   }, [fetchBoard]);
 
   // Reset the game
-  const resetGame = async () => {
+  const resetGame = async (): Promise<void> => {
     try {
       setLoading(true);
       const data = await api.resetGame();
-      console.log('Reset data:', data);
+      console.log('Reset response:', data);
       
       // Check if we have a valid response
       if (!data || data.status === 'error') {
-        console.error('Invalid reset data from API:', data);
-        const errorMsg = data?.error?.message || 'Invalid reset data from API';
+        console.error('Invalid reset response from API:', data);
+        const errorMsg = data?.error?.message || 'Invalid reset response from API';
         showSnackbar(errorMsg);
         return;
       }
@@ -154,7 +177,7 @@ const ChessBoard = ({ api }) => {
       console.log('Received reset FEN:', fenString);
       
       if (fenString && typeof fenString === 'string') {
-        console.log('Setting FEN after reset to:', fenString);
+        console.log('Setting reset FEN to:', fenString);
         setFen(fenString);
         
         // Determine current turn from FEN
@@ -165,14 +188,14 @@ const ChessBoard = ({ api }) => {
         
         // After setting FEN, force a re-render by setting a dummy state
         setTimeout(() => {
-          console.log('Forcing board update with reset FEN:', fenString);
+          console.log('Forcing board update with FEN:', fenString);
           setLoading(false); // Toggle loading to force re-render
           setLoading(true);
           setLoading(false);
         }, 100);
       } else {
-        console.error('Invalid FEN string received for reset:', fenString);
-        showSnackbar('Invalid FEN string received from API for reset');
+        console.error('Invalid FEN string received:', fenString);
+        showSnackbar('Invalid FEN string received from API');
         return;
       }
       
@@ -180,7 +203,7 @@ const ChessBoard = ({ api }) => {
       setMoveFrom('');
       setError(null);
       showSnackbar('Game reset successfully', 'success');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error resetting game:', err);
       showSnackbar('Failed to reset game: ' + err.message);
     } finally {
@@ -189,26 +212,20 @@ const ChessBoard = ({ api }) => {
   };
 
   // Make a move through the API
-  const makeMove = async (from, to) => {
+  const makeMove = async (from: string, to: string): Promise<boolean> => {
     try {
       setLoading(true);
-      const moveString = `${from}${to}`;
-      console.log('Sending move to API:', moveString);
+      const move = `${from}${to}`;
+      console.log('Making move:', move);
       
-      const data = await api.makeMove(moveString);
+      const data = await api.makeMove(move);
       console.log('Move response:', data);
       
       // Check if we have a valid response
-      if (!data) {
-        console.error('Invalid response from API:', data);
-        showSnackbar('Invalid response from API');
-        return false;
-      }
-      
-      // Check for error response
-      if (data.status === 'error') {
-        console.error('Error from API:', data.error);
-        showSnackbar(data.error?.message || 'Error making move');
+      if (!data || data.status === 'error') {
+        console.error('Invalid move response from API:', data);
+        const errorMsg = data?.error?.message || 'Invalid move response from API';
+        showSnackbar(errorMsg);
         return false;
       }
       
@@ -244,7 +261,7 @@ const ChessBoard = ({ api }) => {
       setGameStatus('');
       
       return true;
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error making move:', err);
       showSnackbar('Failed to make move: ' + err.message);
       return false;
@@ -254,12 +271,12 @@ const ChessBoard = ({ api }) => {
   };
 
   // Check if a piece is a black piece
-  const isBlackPiece = (piece) => {
-    return piece && piece.toLowerCase() === piece;
+  const isBlackPiece = (piece: string | undefined): boolean => {
+    return Boolean(piece && piece.toLowerCase() === piece);
   };
 
   // Handle square click
-  const onSquareClick = (square) => {
+  const onSquareClick = (square: string): void => {
     if (loading) return;
     
     // Only allow playing as white
@@ -295,7 +312,7 @@ const ChessBoard = ({ api }) => {
   };
 
   // Handle drag and drop
-  const onPieceDrop = (from, to) => {
+  const onPieceDrop = (from: string, to: string): boolean => {
     if (loading) return false;
     
     // Only allow playing as white
@@ -309,9 +326,9 @@ const ChessBoard = ({ api }) => {
   };
 
   // Determine if a piece is draggable (only white pieces)
-  const isDraggablePiece = ({ piece }) => {
+  const isDraggablePiece = ({ piece }: PieceProps): boolean => {
     // White pieces are uppercase in FEN notation
-    return piece && piece.toUpperCase() === piece;
+    return Boolean(piece && piece.toUpperCase() === piece);
   };
 
   if (loading && !fen) {

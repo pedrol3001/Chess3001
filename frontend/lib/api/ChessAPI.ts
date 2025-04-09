@@ -1,10 +1,14 @@
+import { BoardResponse, ApiResponse, ChessAPIInterface } from '../types';
+
 /**
  * Chess API service for communicating with the Chess3001 API
  */
-class ChessAPI {
+class ChessAPI implements ChessAPIInterface {
+  baseUrl: string;
+
   /**
    * Creates a new ChessAPI instance
-   * @param {string} baseUrl - The base URL of the Chess API
+   * @param baseUrl - The base URL of the Chess API
    */
   constructor(baseUrl = 'http://localhost:4567') {
     this.baseUrl = baseUrl;
@@ -12,9 +16,9 @@ class ChessAPI {
 
   /**
    * Get the current board state
-   * @returns {Promise<Object>} The current board state with status and data/error fields
+   * @returns The current board state with status and data/error fields
    */
-  async getBoard() {
+  async getBoard(): Promise<BoardResponse> {
     try {
       const response = await fetch(`${this.baseUrl}/api/board`, {
         method: 'GET',
@@ -33,8 +37,8 @@ class ChessAPI {
       console.log('API response (getBoard):', data);
       
       // Return the full response which includes status and data/error fields
-      return data;
-    } catch (error) {
+      return data as BoardResponse;
+    } catch (error: any) {
       console.error('Error fetching board state:', error);
       // Return a standardized error response
       return {
@@ -49,10 +53,10 @@ class ChessAPI {
 
   /**
    * Make a move
-   * @param {string} move - The move in algebraic notation (e.g., 'e2e4')
-   * @returns {Promise<Object>} The move response with status and data/error fields
+   * @param move - The move in algebraic notation (e.g., 'e2e4')
+   * @returns The move response with status and data/error fields
    */
-  async makeMove(move) {
+  async makeMove(move: string): Promise<ApiResponse> {
     try {
       const response = await fetch(`${this.baseUrl}/api/move`, {
         method: 'POST',
@@ -72,8 +76,8 @@ class ChessAPI {
       console.log('API response (makeMove):', data);
       
       // Return the full response which includes status and data/error fields
-      return data;
-    } catch (error) {
+      return data as ApiResponse;
+    } catch (error: any) {
       console.error('Error making move:', error);
       // Return a standardized error response
       return {
@@ -88,9 +92,9 @@ class ChessAPI {
 
   /**
    * Reset the game
-   * @returns {Promise<Object>} The reset response with status and data/error fields
+   * @returns The reset response with status and data/error fields
    */
-  async resetGame() {
+  async resetGame(): Promise<ApiResponse> {
     try {
       const response = await fetch(`${this.baseUrl}/api/reset`, {
         method: 'POST',
@@ -109,8 +113,8 @@ class ChessAPI {
       console.log('API response (resetGame):', data);
       
       // Return the full response which includes status and data/error fields
-      return data;
-    } catch (error) {
+      return data as ApiResponse;
+    } catch (error: any) {
       console.error('Error resetting game:', error);
       // Return a standardized error response
       return {
